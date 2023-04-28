@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  rs-node-03-api-solid:
+    image: bitnami/postgresql:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_USERNAME=root
+      - POSTGRESQL_PASSWORD=root@123
+      - POSTGRESQL_DATABASE=rsnodeapisolid
