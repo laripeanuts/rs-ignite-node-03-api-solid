@@ -3,27 +3,27 @@ import { UsersRepository } from "@/repositories/users-repository";
 import { hash } from "bcryptjs";
 
 interface RegisterServiceParams {
-	name: string;
-	email: string;
-	password: string;
+  name: string;
+  email: string;
+  password: string;
 }
 
 export class RegisterService {
-	constructor(private usersRepository: UsersRepository) {}
+  constructor(private usersRepository: UsersRepository) {}
 
-	async execute({ name, email, password }: RegisterServiceParams) {
-		const password_hash = await hash(password, 6);
+  async execute({ name, email, password }: RegisterServiceParams) {
+    const password_hash = await hash(password, 6);
 
-		const userWithSameEmail = await this.usersRepository.findByEmail(email);
+    const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
-		if (userWithSameEmail) {
-			throw new UserAlreadyExistsError();
-		}
+    if (userWithSameEmail) {
+      throw new UserAlreadyExistsError();
+    }
 
-		await this.usersRepository.create({
-			name,
-			email,
-			password_hash,
-		});
-	}
+    await this.usersRepository.create({
+      name,
+      email,
+      password_hash,
+    });
+  }
 }
